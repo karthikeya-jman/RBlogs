@@ -1,9 +1,18 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import SideBar from '../components/SideBar';
+import Header from '../components/Header';
+import CreateForm from '../components/CreateForm';
 
 const Create = () => {
-  return (
-    <div>Create</div>
-  )
-}
 
+    return (
+        <div className='flex'>
+            <SideBar />
+            <div className='w-full'>
+            <Header />
+            <CreateForm />
+            </div>
+        </div>
+      )
+};
 export default Create
