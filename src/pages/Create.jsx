@@ -6,13 +6,13 @@ import CreateForm from '../components/CreateForm';
 const Create = () => {
 
     return (
-        <div className='flex'>
+        <div className='flex gap-1'>
             <SideBar />
             <div className='w-full'>
             <Header />
             <CreateForm />
             </div>
-        </div>
+        </div>  
       )
 };
 export default Create

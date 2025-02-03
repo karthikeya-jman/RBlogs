@@ -17,7 +17,7 @@ const CreateForm = () => {
             <label className="text-lg mb-2">Content</label>
             <textarea name="" id="" placeholder="Enter Content" className="min-h-[100px] border border-gray-300 p-2 rounded"></textarea>
           </div>
-          <button className="w-full bg-blue-500 text-white p-2 rounded">Submit</button>
+          <button className="w-full bg-blue-500 shadow-lg shadow-blue-500/50 text-white p-2 rounded">Submit</button>
         </form>
       </div>
     </div>
