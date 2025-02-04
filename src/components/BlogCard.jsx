@@ -5,8 +5,13 @@ import { FaRegMessage } from "react-icons/fa6";
 import { BsFillTrash3Fill } from "react-icons/bs";
 import { RiEditCircleFill } from "react-icons/ri";
 import { FaShare } from "react-icons/fa";
+import { Link } from "react-router";
 
 const BlogCard = ({ data,blogs,setBlogs}) => {
+
+
+  
+  
 
   function deletePost(postId){
     const posts = JSON.parse(localStorage.getItem("posts")) || [];
@@ -14,9 +19,40 @@ const BlogCard = ({ data,blogs,setBlogs}) => {
     localStorage.setItem("posts",JSON.stringify(updatedPOsts));
     setBlogs(updatedPOsts)
   }
+  function sharePost() {
+    // Function to handle the sharing action
+    const handleShare = async () => {
+      if (navigator.share) {
+        try {
+          // console.log("Sharing...");
+  
+          // Construct the URL you want to share, ensuring correct concatenation
+          const shareUrl = window.location.href + "/edit/" + data.id.toString();
+  
+          // Using Web Share API to share the content
+          await navigator.share({
+            title: data.title, // The title of the content
+            text: 'This is an awesome page!', // The text to share
+            url: shareUrl, // The URL to share
+          });
+  
+          // console.log('Share successful!');
+        } catch (err) {
+          console.error('Error while sharing:', err);
+        }
+      } else {
+        alert('Sharing not supported on this browser.');
+      }
+    };
+  
+    // Call the handleShare function
+    handleShare();
+  }
+  
 
   return (
-    <div className="flex bg-white w-full mx-20 gap-5 rounded-lg shadow-md">
+    <Link to={`/blog/${data.id}`} className="w-full">
+    <div className="flex bg-white  mx-20 gap-5 rounded-lg shadow-md">
       <img src={data.imageUrl} alt="" className="rounded-l-lg w-110  object-cover" />
       <div className="flex items-center justify-between w-full">
 
@@ -49,12 +85,15 @@ const BlogCard = ({ data,blogs,setBlogs}) => {
           <p className="text-lg">Delete</p>
         </div>
 
-        <div className="flex items-center gap-1 p-1 bg-emerald-500/[20%] text-emerald-500 rounded-lg">
-          <RiEditCircleFill className="text-2xl" />
-          <p className="text-lg">Edit</p>
-        </div>
+        <Link to= {`/edit/${data.id}`}>
+          <div className="flex items-center gap-1 p-1 bg-emerald-500/[20%] text-emerald-500 rounded-lg">
+            <RiEditCircleFill className="text-2xl" />
+            <p className="text-lg">Edit</p>
+          </div>
+        </Link>
 
-        <div className="flex items-center gap-1 p-1 bg-blue-500/[20%] text-blue-500 rounded-lg">
+        <div className="flex items-center gap-1 p-1 bg-blue-500/[20%] text-blue-500 rounded-lg"
+        onClick={()=>sharePost()}>
           <FaShare className="text-2xl" />
           <p className="text-lg">Share</p>
         </div>
@@ -63,6 +102,8 @@ const BlogCard = ({ data,blogs,setBlogs}) => {
       </div>
       </div>
     </div>
+    </Link>
+
   );
 };
 
